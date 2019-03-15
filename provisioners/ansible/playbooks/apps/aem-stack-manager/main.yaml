@@ -16,10 +16,12 @@
         - create
 
     - name: Upload CloudFormation Templates to S3
-      command: >
-              aws s3 sync ../../../../../templates/cloudformation/apps/aem-stack-manager
-                  s3://{{ s3.data_bucket_name }}/{{ stack_prefix }}
-                  --include "*.yaml" --acl public-read
+      s3_sync:
+        bucket: "{{ s3.data_bucket_name }}"
+        file_root: ../../../../../templates/cloudformation/apps/aem-stack-manager
+        include: "*.yaml"
+        key_prefix: "{{ stack_prefix }}"
+        permission: public-read
       tags:
         - create
 
@@ -32,9 +34,11 @@
         - create
 
     - name: Upload SSM Documents CloudFormation Template to S3
-      command: >
-              aws s3 cp ../../../../../stage/ssm-commands.yaml
-                  s3://{{ s3.data_bucket_name }}/{{ stack_prefix }}/ssm-commands.yaml
+      aws_s3:
+        bucket: "{{ s3.data_bucket_name }}"
+        prefix: "{{ stack_prefix }}"
+        src: ../../../../../stage/ssm-commands.yaml
+        object: ssm-commands.yaml
       tags:
         - create
 
