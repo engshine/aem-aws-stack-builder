@@ -21,6 +21,7 @@
         file_root: ../../../../../templates/cloudformation/apps/aem-stack-manager
         include: "*.yaml"
         key_prefix: "{{ stack_prefix }}"
+        permission: public-read
         region: "{{ aws.region }}"
       tags:
         - create
