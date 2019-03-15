@@ -22,6 +22,7 @@
         include: "*.yaml"
         key_prefix: "{{ stack_prefix }}"
         permission: public-read
+        region: "{{ aws.region }}"
       tags:
         - create
 
@@ -39,6 +40,7 @@
         prefix: "{{ stack_prefix }}"
         src: ../../../../../stage/ssm-commands.yaml
         object: ssm-commands.yaml
+        region: "{{ aws.region }}"
       tags:
         - create
 
